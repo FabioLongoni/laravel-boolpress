@@ -12,6 +12,7 @@
   <form action="{{ route('admin.posts.store') }}" method="POST">
   
     @csrf
+
     <div class="form-group">
       <label for="name">Titolo</label>
       <input type="tecy" class="form-control @error('title')is-invalid @enderror" id="title" value="{{ old('title') }}" name="title" aria-describedby="helpTitle">
@@ -29,6 +30,8 @@
     </div>
     
     <button type="submit" class="btn btn-primary">Crea</button>
+    
   </form>
+
 </div>
 @endsection
