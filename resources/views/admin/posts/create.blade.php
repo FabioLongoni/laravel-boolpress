@@ -6,9 +6,6 @@
     <div class="col-8">
       <h1>Crea un nuovo post</h1>
     </div>
-    <div class="col-4 text-left d-flex justify-content-end align-items-center">
-      <a href="{{ route('admin.posts.create') }}" type="button" class="btn btn-primary btn-sm">Inserisci un nuovo posts</a>
-    </div>
   </div>
 </div>
 <div class="container-fluid">
