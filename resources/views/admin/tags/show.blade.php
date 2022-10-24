@@ -9,7 +9,7 @@
           <article>
             <a href="{{ route('admin.posts.show',$post)}}">
               <h3>
-                {{ $post->title }}
+                {{ $post->name }}
               </h3>
               <p>
                 {{ $post->slug}}
