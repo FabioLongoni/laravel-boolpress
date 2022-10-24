@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::limit(50)->get();
+        $posts = Post::orderBy('id','desc')->get();
         return view('admin.posts.index',compact('posts'));
     }
 
@@ -72,7 +72,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('admin.posts.edit',compact('categories'));  
+        return view('admin.posts.edit',compact('categories','post'));  
     }
 
     /**
@@ -93,7 +93,7 @@ class PostController extends Controller
         $params['slug'] = str_replace(' ','-',$params['title']);
         $post->update($params);
 
-        return redirect()->route('admin.posts.show',$post);
+        return redirect()->route('admin.posts.show', $post);
     }
 
     /**
