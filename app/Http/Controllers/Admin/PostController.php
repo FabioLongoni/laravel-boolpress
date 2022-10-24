@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Tag;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
@@ -16,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::limit(50)->get();
+        $posts = Post::orderBy('id','desc')->get();
         return view('admin.posts.index',compact('posts'));
     }
 
@@ -27,8 +28,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name','asc')->get();;
-        return view('admin.posts.create',compact('categories'));
+        $categories = Category::orderBy('name','asc')->get();
+        $tags = Tag::orderBy('name','asc')->get();
+        return view('admin.posts.create',compact('categories','tags'));
     }
 
     /**
@@ -42,11 +44,17 @@ class PostController extends Controller
         $params = $request->validate([
             'title'=> 'required|max:255|min:5',
             'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id'
         ]);
 
         $params['slug'] = str_replace(' ','-',$params['title']);
         $post = Post::create($params);
+        
+        if(array_key_exists('tags',$params)) {
+            $tags = $params['tags'];
+            $post->tags()->sync($tags);
+        }
 
         return redirect()->route('admin.posts.show',$post);
     }
@@ -72,7 +80,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::orderBy('name', 'asc')->get();
-        return view('admin.posts.edit',compact('categories'));  
+        $tags = Tag::orderBy('name','asc')->get();
+        return view('admin.posts.edit',compact('categories','post','tags'));  
     }
 
     /**
@@ -87,13 +96,21 @@ class PostController extends Controller
         $params = $request->validate([
             'title'=> 'required|max:255|min:5',
             'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id'
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id'
         ]);
 
         $params['slug'] = str_replace(' ','-',$params['title']);
         $post->update($params);
 
-        return redirect()->route('admin.posts.show',$post);
+        if(array_key_exists('tags',$params)) {
+            $post->tags()->sync($params['tags']);
+        }else {
+            $post->tags()->detach();
+        }
+
+
+        return redirect()->route('admin.posts.show', $post);
     }
 
     /**
