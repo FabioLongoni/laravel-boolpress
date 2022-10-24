@@ -5,6 +5,11 @@
   <div class="row">
     <div class="col-8">
       <h1>{{ $post->title }}</h1>
+      <p>{{ $post->slug }}</p>
+
+      @if ($post->category)
+        <p>{{ $post->category->name }}</p>    
+      @endif
     </div>
     <div class="col-4 text-left d-flex justify-content-end align-items-center">
       <a href="{{ route('admin.posts.edit',$post) }}" type="button" class="btn btn-primary btn-sm">Modifica post</a>
@@ -23,5 +28,7 @@
     {{ $post->content }}
   </p>
 </div>
+
+
 
 @endsection

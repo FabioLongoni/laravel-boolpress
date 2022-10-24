@@ -23,7 +23,10 @@
           {{ $message }}
         </div>    
       @enderror
+
     </div>
+
+    
     <div class="form-group">
       <label for="content">Inserisci testo</label>
       <textarea class="form-control  @error('content')is-invalid @enderror" id="content" name="content" rows="18">{{ old('content',$post->content)}}</textarea>
