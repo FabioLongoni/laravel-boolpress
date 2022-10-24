@@ -1,5 +1,6 @@
 <?php
 
+use App\Tag;
 use App\Post;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -16,6 +17,7 @@ class PostSeeder extends Seeder
     public function run(Faker $faker)
     {
         $categoryIds = Category::all()->pluck('id');
+        $tags = Tag::all()->pluck('id');
 
         for ($i = 0; $i < 50; $i++) { 
             $post = new Post();
@@ -23,7 +25,12 @@ class PostSeeder extends Seeder
             $post->content = $faker->paragraphs(rand(10,20),true);
             $post->slug = Str::slug($post->title);
             $post->category_id = $faker->optional()->randomElement($categoryIds);
+
             $post->save();
+
+            //prende i tag li mescola e ci restituisce i primi 3
+            $tagIds = $tags->shuffle()->take(3)->all();
+            $post->tags()->sync($tagIds);
         }
     }
 }
