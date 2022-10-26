@@ -17,7 +17,7 @@
       <label for="image">Immagine copertina</label>
 
       <div class="custom-file">
-        <input type="file" name="image" class="custom-file-input" id="image" required>
+        <input type="file" name="image" class="custom-file-input @error('image')is-invalid @enderror" id="image" required>
         <label class="custom-file-label" for="image">Scegli un file</label>
         @error('image')
           <div id="image" class="invalid-feedback">
