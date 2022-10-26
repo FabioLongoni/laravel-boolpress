@@ -9,9 +9,24 @@
   </div>
 </div>
 <div class="container-fluid">
-  <form action="{{ route('admin.posts.store') }}" method="POST">
+  <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
   
     @csrf
+
+    <div class="form-group">
+      <label for="image">Immagine copertina</label>
+
+      <div class="custom-file">
+        <input type="file" name="image" class="custom-file-input" id="image" required>
+        <label class="custom-file-label" for="image">Scegli un file</label>
+        @error('image')
+          <div id="image" class="invalid-feedback">
+            {{ $message }}
+          </div>    
+        @enderror
+      </div>
+      
+    </div>
 
     <div class="form-group">
       <label for="name">Titolo</label>
