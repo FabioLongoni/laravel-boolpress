@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Tag;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -105,10 +107,17 @@ class PostController extends Controller
             'title'=> 'required|max:255|min:5',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags' => 'exists:tags,id',
+            'image' => 'nullable|image|max:2048'
         ]);
 
         $params['slug'] = str_replace(' ','-',$params['title']);
+
+        if(array_key_exists('image',$params)) {
+            $img_path = Storage::disk('public')->put('post_covers',$params['image']);
+            $params['cover'] = $img_path;
+        }
+
         $post->update($params);
 
         if(array_key_exists('tags',$params)) {
