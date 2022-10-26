@@ -9,9 +9,14 @@
   </div>
 </div>
 <div class="container-fluid">
-  <form action="{{ route('admin.posts.store') }}" method="POST">
+  <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
   
     @csrf
+
+    <div class="form-group">
+      <label for="image">Immagine copertina articolo</label>
+      {{-- iserire input immagine --}}
+    </div>
 
     <div class="form-group">
       <label for="name">Titolo</label>
