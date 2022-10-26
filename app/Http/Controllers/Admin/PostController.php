@@ -45,12 +45,20 @@ class PostController extends Controller
             'title'=> 'required|max:255|min:5',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags' => 'exists:tags,id',
+            'image' => 'nullable|image|max:2048'
         ]);
 
         $params['slug'] = str_replace(' ','-',$params['title']);
-        $post = Post::create($params);
         
+        
+        if(array_key_exists('image',$params)) {
+            $img_path = Storage::disk('public')->put('post_covers',$params['image']);
+            $params['cover'] = $img_path;
+        }
+
+        $post = Post::create($params);
+
         if(array_key_exists('tags',$params)) {
             $tags = $params['tags'];
             $post->tags()->sync($tags);
@@ -121,7 +129,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $coverPath = $post->cover;
         $post->delete();
+
+        if ($coverPath && Storage::disk('public')->exists($coverPath)) {
+            Storage::disk('public')->delete($coverPath);
+        }
+
         return redirect()->route('admin.posts.index');
     }
 }

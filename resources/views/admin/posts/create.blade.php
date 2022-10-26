@@ -14,8 +14,18 @@
     @csrf
 
     <div class="form-group">
-      <label for="image">Immagine copertina articolo</label>
-      {{-- iserire input immagine --}}
+      <label for="image">Immagine copertina</label>
+
+      <div class="custom-file">
+        <input type="file" name="image" class="custom-file-input" id="image" required>
+        <label class="custom-file-label" for="image">Scegli un file</label>
+        @error('image')
+          <div id="image" class="invalid-feedback">
+            {{ $message }}
+          </div>    
+        @enderror
+      </div>
+      
     </div>
 
     <div class="form-group">

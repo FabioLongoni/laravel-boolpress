@@ -10,7 +10,8 @@ class Post extends Model
         'title',
         'content',
         'slug',
-        'category_id'
+        'category_id',
+        'cover'
     ];
 
     public function category() {
@@ -20,5 +21,9 @@ class Post extends Model
 
     public function tags() {
         return $this->belongsToMany('App\Tag');
-    }    
+    }  
+    
+    public function getCoverPathAttribute() {
+        return Storage::disk('public')->url($this->cover);
+    }
 }
