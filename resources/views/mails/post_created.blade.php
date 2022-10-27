@@ -1,5 +1,7 @@
 
 <label for="">Titolo nuovo post</label>
 <h1>
-  Ecco la Tua Nuova Mail
+  <a href="{{ route('admin.posts.show',$post) }}">
+    {{ $post->title }}
+  </a>
 </h1>
