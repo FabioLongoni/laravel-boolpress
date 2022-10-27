@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-
+use App\Mail\SendPostCreatedMail;
 use App\Tag;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -65,6 +66,8 @@ class PostController extends Controller
             $tags = $params['tags'];
             $post->tags()->sync($tags);
         }
+
+        Mail::to('aloa@gmail.com')->send(new SendPostCreatedMail());
 
         return redirect()->route('admin.posts.show',$post);
     }
