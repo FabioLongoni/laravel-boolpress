@@ -1,7 +1,12 @@
+@component('mail::message')
+# Nuovo post
+  
+Un nuovo post è stato aggiunto!
 
-<label for="">Titolo nuovo post</label>
-<h1>
-  <a href="{{ route('admin.posts.show',$post) }}">
-    {{ $post->title }}
-  </a>
-</h1>
+@component('mail::button', ['url'=> route('admin.posts.show',$post)])
+{{ $post->title}}
+@endcomponent
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent
