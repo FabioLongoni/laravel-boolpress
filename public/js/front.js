@@ -1911,8 +1911,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      title: 'Welcome back Javascript-Vue'
+      title: 'Welcome back Javascript-Vue',
+      posts: []
     };
+  },
+  methods: {
+    fetchPosts: function fetchPosts() {
+      var _this = this;
+      axios.get('/api/posts').then(function (res) {
+        var posts = res.data.posts;
+        _this.posts = posts;
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.fetchPosts();
   }
 });
 
@@ -1936,7 +1949,11 @@ var render = function render() {
     staticStyle: {
       padding: "1rem"
     }
-  }, [_c("h1", [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("p", [_vm._v("\n    Javascript is used by programmers across the world to create dynamic and interactive web content like applications and browsers. JavaScript is so popular that it's the most used programming language in the world, used as a client-side programming language by 97.0% of all websites.\n  ")])]);
+  }, [_c("h1", [_vm._v(" " + _vm._s(_vm.title) + " ")]), _vm._v(" "), _c("ul", _vm._l(_vm.posts, function (post) {
+    return _c("li", {
+      key: post.id
+    }, [_vm._v("\n      " + _vm._s(post.title) + "\n    ")]);
+  }), 0)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

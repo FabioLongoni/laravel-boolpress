@@ -1,18 +1,32 @@
 <template>
   <div style="padding: 1rem;">
-    <h1>{{ title }}</h1>
-    <p>
-      Javascript is used by programmers across the world to create dynamic and interactive web content like applications and browsers. JavaScript is so popular that it's the most used programming language in the world, used as a client-side programming language by 97.0% of all websites.
-    </p>
+    <h1> {{ title }} </h1>
+    <ul>
+      <li v-for="post in posts" :key="post.id">
+        {{post.title}}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
   export default {
     data() {
-      return{
-        title: 'Welcome back Javascript-Vue'
+      return {
+        title: 'Welcome back Javascript-Vue',
+        posts: []
       }
+    },
+    methods: {
+      fetchPosts() {
+        axios.get('/api/posts').then((res) => {
+          const { posts } = res.data
+          this.posts = posts
+        })
+      }
+    },
+    beforeMount() {
+      this.fetchPosts();
     }
   }
 </script>
