@@ -1932,7 +1932,11 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("h1", [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("p", [_vm._v("\n    Javascript is used by programmers across the world to create dynamic and interactive web content like applications and browsers. JavaScript is so popular that it's the most used programming language in the world, used as a client-side programming language by 97.0% of all websites.\n  ")])]);
+  return _c("div", {
+    staticStyle: {
+      padding: "1rem"
+    }
+  }, [_c("h1", [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("p", [_vm._v("\n    Javascript is used by programmers across the world to create dynamic and interactive web content like applications and browsers. JavaScript is so popular that it's the most used programming language in the world, used as a client-side programming language by 97.0% of all websites.\n  ")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
