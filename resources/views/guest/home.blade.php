@@ -23,6 +23,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="{{ asset('js/front.js') }}" defer></script>
+  <script type="text/javascript" src="{{ asset('js/front.js') }}" defer></script>
 </body>
 </html>
