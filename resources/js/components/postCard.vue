@@ -1,6 +1,6 @@
 <template>
   <article class="relative rounded-lg overflow-hidden">
-    <img v-if="post.cover" :src="`/storage/${post.cover}`"  alt="">
+    <img v-if="post.cover" :src="`/storage/${post.cover}`" alt="">
     <div class="p-4 mt-2">
       <h3 class="font-semibold uppercase">{{ post.title }}</h3>
       <p v-if="post.category" class="text-lime-600 uppercase text-sm font-semibold">{{ post.category.name }}</p>
@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 article {
-  box-shadow: -1px 1px 18px 1px rgba(0,0,0,0.56);
+  box-shadow: -1px 1px 18px 1px rgba(0,0,0,0.40);
 }
 img {
   max-height: 200px;
