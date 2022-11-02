@@ -15,6 +15,7 @@
 
     <!-- Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
 <body>
