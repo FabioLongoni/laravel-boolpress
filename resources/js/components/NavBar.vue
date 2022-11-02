@@ -1,7 +1,7 @@
 <template>
   <header class="bg-cyan-600">
-    <nav class="container text-white">
-      <div class="flex justify-between items-center">
+    <nav class="text-white">
+      <div class="flex justify-around items-center">
         <div>
           LOGO
         </div>

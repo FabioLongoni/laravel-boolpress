@@ -2041,7 +2041,26 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['slug'],
+  data: function data() {
+    return {
+      post: null
+    };
+  },
+  methods: {
+    fetchPost: function fetchPost() {
+      axios.get("/api/posts/".concat(this.slug)).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  },
+  beforeMount: function beforeMount() {
+    this.fetchPosts();
+  }
+});
 
 /***/ }),
 
@@ -2081,9 +2100,9 @@ var render = function render() {
   return _c("header", {
     staticClass: "bg-cyan-600"
   }, [_c("nav", {
-    staticClass: "container text-white"
+    staticClass: "text-white"
   }, [_c("div", {
-    staticClass: "flex justify-between items-center"
+    staticClass: "flex justify-around items-center"
   }, [_c("div", [_vm._v("\n        LOGO\n      ")]), _vm._v(" "), _c("ul", {
     staticClass: "flex items-center"
   }, _vm._l(_vm.navLinks, function (link, i) {
@@ -2258,12 +2277,21 @@ var render = function render() {
   }, [_vm._v(" " + _vm._s(_vm.title) + " ")])]), _vm._v(" "), _c("section", [_c("div", {
     staticClass: "grid grid-cols-3 gap-6 justify-center"
   }, _vm._l(_vm.posts, function (post) {
-    return _c("PostCard", {
+    return _c("router-link", {
       key: post.id,
+      attrs: {
+        to: {
+          name: "posts.show",
+          params: {
+            slug: post.slug
+          }
+        }
+      }
+    }, [_c("PostCard", {
       attrs: {
         post: post
       }
-    });
+    })], 1);
   }), 1)])]);
 };
 var staticRenderFns = [];
@@ -2287,8 +2315,10 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", [_c("section", [_c("div", [_c("h1", {
-    staticClass: "text-center text-2xl font-semibold text-slate-900"
-  }, [_vm._v("Pagina di dettaglio")]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.slug))])])])]);
+    staticClass: "text-center text-2xl font-semibold text-slate-900 mb-5"
+  }, [_vm._v("Pagina di dettaglio")]), _vm._v(" "), _c("p", {
+    staticClass: "text-xl text-center"
+  }, [_vm._v(_vm._s(_vm.slug))])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

@@ -6,7 +6,9 @@
 
     <section>
       <div class="grid grid-cols-3 gap-6 justify-center">
-        <PostCard v-for="post in posts" :key="post.id" :post="post"/>
+        <router-link :to="{ name: 'posts.show', params: { slug: post.slug }}" v-for="post in posts" :key="post.id" >
+          <PostCard :post="post"/>
+        </router-link>
       </div>
     </section>
   </div>
@@ -17,7 +19,7 @@
 import PostCard from '../components/postCard.vue'
 export default {
   components: { PostCard },
-  
+
   data() {
       return {
         title: 'Welcome back Javascript-Vue',
