@@ -1,7 +1,7 @@
 <template>
   <div v-if="post">
-    <section class="h-96">
-      <img :src="post.cover_path" alt="">
+    <section class="h-96 flex justify-center p-5 bg-cyan-100">
+      <img class="h-full w-1/2 object-cover" :src="`/storage/${post.cover}`" alt="">
     </section>
     <section>
       <div>
