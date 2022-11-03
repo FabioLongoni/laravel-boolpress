@@ -2050,15 +2050,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchPost: function fetchPost() {
+      var _this = this;
       axios.get("/api/posts/".concat(this.slug)).then(function (res) {
         console.log(res.data);
+        var post = res.data.post;
+        _this.post = post;
       })["catch"](function (err) {
         console.log(err);
       });
     }
   },
   beforeMount: function beforeMount() {
-    this.fetchPosts();
+    this.fetchPost();
   }
 });
 
@@ -2314,11 +2317,19 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("section", [_c("div", [_c("h1", {
+  return _vm.post ? _c("div", [_c("section", {
+    staticClass: "h-96 flex justify-center p-5 bg-cyan-100"
+  }, [_c("img", {
+    staticClass: "h-full w-1/2 object-cover",
+    attrs: {
+      src: "/storage/".concat(_vm.post.cover),
+      alt: ""
+    }
+  })]), _vm._v(" "), _c("section", [_c("div", [_c("h1", {
     staticClass: "text-center text-2xl font-semibold text-slate-900 mb-5"
-  }, [_vm._v("Pagina di dettaglio")]), _vm._v(" "), _c("p", {
+  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c("p", {
     staticClass: "text-xl text-center"
-  }, [_vm._v(_vm._s(_vm.slug))])])])]);
+  }, [_vm._v(_vm._s(_vm.post.content))])])])]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
