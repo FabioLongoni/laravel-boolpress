@@ -4,6 +4,7 @@ import ContactUs from "../pages/ContactUs.vue";
 import AboutUs from "../pages/AboutUs.vue";
 import PostsIndex from "../pages/Posts.index.vue";
 import PostsShow from "../pages/Posts.show.vue";
+import Error404 from "../pages/404error.vue";
 
 const routes = [
   {
@@ -31,7 +32,12 @@ const routes = [
     name: "posts.show",
     component: PostsShow,
     props: true
-  }
+  },
+  {
+    path: '/*',
+    name: '404error',
+    component: Error404
+  },
 ];
 
 export default routes;
