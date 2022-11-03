@@ -2318,10 +2318,11 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _vm.post ? _c("div", [_c("section", {
-    staticClass: "h-96"
+    staticClass: "h-96 flex justify-center p-5 bg-cyan-100"
   }, [_c("img", {
+    staticClass: "h-full w-1/2 object-cover",
     attrs: {
-      src: _vm.post.cover_path,
+      src: "/storage/".concat(_vm.post.cover),
       alt: ""
     }
   })]), _vm._v(" "), _c("section", [_c("div", [_c("h1", {
