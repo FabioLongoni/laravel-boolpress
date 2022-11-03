@@ -31,6 +31,11 @@ export default {
         axios.get('/api/posts').then((res) => {
           const { posts } = res.data
           this.posts = posts
+        }).catch((err) => {
+          const { status } = err.response
+          if(status === 404) {
+            this.$router.replace({ name: '404error'})
+          }
         })
       }
     },
