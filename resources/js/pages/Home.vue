@@ -2,7 +2,7 @@
   <section>
     <div class="p-5">
       <h1 class="text-center text-2xl font-semibold text-slate-900">
-        {{title}}
+        {{ title }}
       </h1>
     </div>
   </section>

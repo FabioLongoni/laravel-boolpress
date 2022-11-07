@@ -15,11 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->with('category','tags')->limit(20)->get();
+        $result = Post::orderBy('created_at', 'desc')->with('category','tags')->paginate(12);
+        $success = true;
 
-        return response()->json([   
-            'posts' => $posts
-        ]);
+        return response()->json(compact('result','success'));
     }
 
     /**
@@ -43,12 +42,17 @@ class PostController extends Controller
     {
         $post = Post::where('slug',$slug)->with('category','tags')->first();
 
-        return response()->json([
-            'post' => $post,
-            'success' => true
-        ]);
+        if($post) {
+            return response()->json([
+                'post' => $post,
+                'success' => true
+            ]);
+        }else {
+            return response()->json([
+                'success' => false
+            ],404);
+        }
     }
-
     /**
      * Update the specified resource in storage.
      *

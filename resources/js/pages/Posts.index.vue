@@ -10,6 +10,30 @@
           <PostCard :post="post"/>
         </router-link>
       </div>
+
+      <div class="container pt-12">
+        <ul class="flex gap-6 justify-center">
+          <li v-if="currentPage !== 1" @click="fetchPosts(1)" :class="{
+            'w-8 h-8 flex items-center justify-center rounded-full': true,
+            'bg-gray-100 cursor-pointer hover:bg-cyan-600': true
+          }">
+        ...  
+        </li>
+
+          <li @click="fetchPosts(page)" :class="{
+            'w-8 h-8 flex items-center justify-center rounded-full': true,
+            'bg-cyan-600 text-white': page === currentPage,
+            'bg-gray-100 cursor-pointer hover:bg-cyan-600': page !== currentPage
+          }" v-for="page in lastPage" :key="page">{{ page }}</li>
+
+          <li v-if="currentPage !== lastPage" @click="fetchPosts(lastPage)" :class="{
+            'w-8 h-8 flex items-center justify-center rounded-full': true,
+            'bg-gray-100 cursor-pointer hover:bg-cyan-600': true
+          }">
+        ...  
+        </li>
+        </ul>
+      </div>
     </section>
   </div>
 </template>
@@ -23,19 +47,28 @@ export default {
   data() {
       return {
         title: 'Welcome back Javascript-Vue',
-        posts: []
+        posts: [],
+        currentPage: 1,
+        lastPage: 0,
+        total: 0
       }
     },
     methods: {
-      fetchPosts() {
-        axios.get('/api/posts').then((res) => {
-          const { posts } = res.data
-          this.posts = posts
-        }).catch((err) => {
-          const { status } = err.response
-          if(status === 404) {
-            this.$router.replace({ name: '404error'})
+      fetchPosts(page = 1) {
+        axios.get('/api/posts', {
+          params: {
+            page: page
           }
+        }).then((res) => {
+          // console.log(res.data)
+          const { data, current_page, last_page, total } = res.data.result
+          
+          this.posts = data
+          this.lastPage = last_page
+          this.currentPage = current_page
+          this.total = total
+          // const { posts } = res.data
+          // this.posts = posts
         })
       }
     },
